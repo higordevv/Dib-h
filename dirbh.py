@@ -71,3 +71,5 @@ def scanner():
 
     except KeyboardInterrupt:
         print(f"\n{cyan}[{red}!{cyan}]{white} Programa terminado pelo usuario!.")
+
+scanner()
