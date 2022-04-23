@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from ast import Num
+from pickle import TRUE
 import requests, os, sys, argparse, queue
 os.system('clear')
 yellow='\u001b[1;93m'
@@ -29,14 +31,14 @@ print(f'{yellow}{banner}{white}')
 #Definindo os Argumentos!
 args = []
 passedArguments = argparse.ArgumentParser()
-passedArguments.add_argument("--url", type=str,required=False, help="Passe a Url.")
-passedArguments.add_argument("--wordlist",type=str, required=False, help="Selecione a WorldList.")
-passedArguments.add_argument("--status", type=list,required=False, nargs='+', help="Filtra os status code da url.")
+passedArguments.add_argument("--url",required=False, help="Passe a Url.")
+passedArguments.add_argument("--wordlist", required=False, help="Selecione a WorldList.")
+passedArguments.add_argument("--status",required=False, nargs=2, help="Filtra os status code da url.")
 args = passedArguments.parse_args()
 global orgns
 
 #Usando os argumentos 
-urltarget = str(args.url)
+urltarget = args.url
 
 try:
     worldlist = open(args.wordlist,'r').read().split('\n')
@@ -57,6 +59,8 @@ print(f"{cyan}[{red}*{cyan}]{white} Status Codes: {args.status}")
 print(f"\n{cyan}[{red}*{cyan}]{white} DirbH ESTÁ VERIFICANDO OS DIRETÓRIOS POR FAVOR, AGUARDE [CTRL+C STOP]...")
 print("\n") 
 
+
+
 def scanner():
     counter = 0
     try:
@@ -67,7 +71,8 @@ def scanner():
             Reply = f'{r.status_code}'           
             if Reply in args.status:
                 print(f"Status {green}{Reply}{white} => {green}{url}{white}")
-                r.append((url,Reply))
+
+                
 
     except KeyboardInterrupt:
         print(f"\n{cyan}[{red}!{cyan}]{white} Programa terminado pelo usuario!.")
