@@ -33,12 +33,14 @@ args = []
 passedArguments = argparse.ArgumentParser()
 passedArguments.add_argument("--url",required=False, help="Passe a Url.")
 passedArguments.add_argument("--wordlist", required=False, help="Selecione a WorldList.")
-passedArguments.add_argument("--status",required=False, nargs='?', help="Filtra os status code da url.")
+passedArguments.add_argument("--status",required=False, nargs='+', help="Filtra os status code da url.")
 args = passedArguments.parse_args()
 global orgns
 
 #Usando os argumentos 
 urltarget = args.url
+listS = args.status
+status_int = [int(i) for i in listS]
 
 try:
     worldlist = open(args.wordlist,'r').read().split('\n')
@@ -55,7 +57,7 @@ for lista in worldlist:
 
 print(f"{cyan}[{red}*{cyan}]{white} URL ALVO: {urltarget}")
 print(f"{cyan}[{red}*{cyan}]{white} Wordlist: {args.wordlist}")
-print(f"{cyan}[{red}*{cyan}]{white} Status Codes: {args.status}")
+print(f"{cyan}[{red}*{cyan}]{white} Status Codes: {status_int}")
 print(f"\n{cyan}[{red}*{cyan}]{white} DirbH ESTÁ VERIFICANDO OS DIRETÓRIOS POR FAVOR, AGUARDE [CTRL+C STOP]...")
 print("\n") 
 
@@ -68,10 +70,10 @@ def scanner():
             ingectorList = orgns.get()
             url = f'{urltarget}/{ingectorList}'
             r = requests.get(url)
-            Reply = f'{r.status_code}'           
-            if Reply <= '200' in args.status:
+            Reply = f'{r.status_code}'         
+            if Reply <= 200 in status_int:
                 print(f"Status {green}{Reply}{white} => {green}{url}{white}")
-            elif Reply >= '400' in args.status:
+            elif Reply >= 400 in status_int:
                 print(f"Status {red}{Reply}{white} => {red}{url}{white}")
 
 
