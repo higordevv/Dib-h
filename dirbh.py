@@ -8,7 +8,7 @@ cyan = '\u001b[1;96m'
 red = '\u001b[1;91m'
 green = '\u001b[1;92m'
 white = '\u001b[1;37;40m'
-
+orange = '	\033[1;91m'
 banner = '''
 
 
@@ -33,7 +33,7 @@ args = []
 passedArguments = argparse.ArgumentParser()
 passedArguments.add_argument("--url",required=False, help="Passe a Url.")
 passedArguments.add_argument("--wordlist", required=False, help="Selecione a WorldList.")
-passedArguments.add_argument("--status",required=False, nargs=2, help="Filtra os status code da url.")
+passedArguments.add_argument("--status",required=False, nargs='?', help="Filtra os status code da url.")
 args = passedArguments.parse_args()
 global orgns
 
@@ -69,8 +69,11 @@ def scanner():
             url = f'{urltarget}/{ingectorList}'
             r = requests.get(url)
             Reply = f'{r.status_code}'           
-            if Reply in args.status:
+            if Reply <= '200' in args.status:
                 print(f"Status {green}{Reply}{white} => {green}{url}{white}")
+            elif Reply >= '400' in args.status:
+                print(f"Status {red}{Reply}{white} => {red}{url}{white}")
+
 
                 
 
