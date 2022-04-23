@@ -39,8 +39,7 @@ global orgns
 
 #Usando os argumentos 
 urltarget = args.url
-listS = args.status
-status_int = [int(i) for i in listS]
+
 
 try:
     worldlist = open(args.wordlist,'r').read().split('\n')
@@ -57,7 +56,7 @@ for lista in worldlist:
 
 print(f"{cyan}[{red}*{cyan}]{white} URL ALVO: {urltarget}")
 print(f"{cyan}[{red}*{cyan}]{white} Wordlist: {args.wordlist}")
-print(f"{cyan}[{red}*{cyan}]{white} Status Codes: {status_int}")
+print(f"{cyan}[{red}*{cyan}]{white} Status Codes: {args.status}")
 print(f"\n{cyan}[{red}*{cyan}]{white} DirbH ESTÁ VERIFICANDO OS DIRETÓRIOS POR FAVOR, AGUARDE [CTRL+C STOP]...")
 print("\n") 
 
@@ -71,10 +70,8 @@ def scanner():
             url = f'{urltarget}/{ingectorList}'
             r = requests.get(url)
             Reply = f'{r.status_code}'         
-            if Reply <= 200 in status_int:
+            if Reply in args.status:
                 print(f"Status {green}{Reply}{white} => {green}{url}{white}")
-            elif Reply >= 400 in status_int:
-                print(f"Status {red}{Reply}{white} => {red}{url}{white}")
 
 
                 
