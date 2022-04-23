@@ -29,9 +29,9 @@ print(f'{yellow}{banner}{white}')
 #Definindo os Argumentos!
 args = []
 passedArguments = argparse.ArgumentParser()
-passedArguments.add_argument("--url", required=False, help="Passe a Url.")
-passedArguments.add_argument("--wordlist", required=False, help="Selecione a WorldList.")
-passedArguments.add_argument("--status", required=False, nargs='+', help="Filtra os status code da url.")
+passedArguments.add_argument("--url", type=str,required=False, help="Passe a Url.")
+passedArguments.add_argument("--wordlist",type=str, required=False, help="Selecione a WorldList.")
+passedArguments.add_argument("--status", type=list,required=False, nargs='+', help="Filtra os status code da url.")
 args = passedArguments.parse_args()
 global orgns
 
