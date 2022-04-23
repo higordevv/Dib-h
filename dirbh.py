@@ -51,7 +51,7 @@ for lista in worldlist:
     orgns.put(lista)
     começo+=1
 
-print(f"{cyan}[{red}*{cyan}]{white} URL ALVO: {targeturl}")
+print(f"{cyan}[{red}*{cyan}]{white} URL ALVO: {urltarget}")
 print(f"{cyan}[{red}*{cyan}]{white} Wordlist: {args.wordlist}")
 print(f"{cyan}[{red}*{cyan}]{white} Status Codes: {args.status}")
 print(f"\n{cyan}[{red}*{cyan}]{white} DirbH ESTÁ VERIFICANDO OS DIRETÓRIOS POR FAVOR, AGUARDE [CTRL+C STOP]...")
@@ -67,7 +67,7 @@ def scanner():
             Reply = f'{r.status_code}'           
             if Reply in args.status:
                 print(f"Status {green}{Reply}{white} => {green}{url}{white}")
-                hits.append((url,Reply))
+                r.append((url,Reply))
 
     except KeyboardInterrupt:
         print(f"\n{cyan}[{red}!{cyan}]{white} Programa terminado pelo usuario!.")
