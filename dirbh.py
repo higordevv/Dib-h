@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from ast import Num
 from pickle import TRUE
 import requests, os, sys, argparse, queue
@@ -38,7 +37,7 @@ args = passedArguments.parse_args()
 global orgns
 
 #Usando os argumentos 
-urltarget = args.url
+urltarget = "https://"+args.url
 
 
 try:
@@ -57,7 +56,7 @@ for lista in worldlist:
 print(f"{cyan}[{red}*{cyan}]{white} URL ALVO: {urltarget}")
 print(f"{cyan}[{red}*{cyan}]{white} Wordlist: {args.wordlist}")
 print(f"{cyan}[{red}*{cyan}]{white} Status Codes: {args.status}")
-print(f"\n{cyan}[{red}*{cyan}]{white} DirbH ESTÁ VERIFICANDO OS DIRETÓRIOS POR FAVOR, AGUARDE [CTRL+C STOP]...")
+print(f"\n{cyan}[{red}*{cyan}]{white} DirbH ESTÁ VERIFICANDO OS DIRETÓRIOS, AGUARDE [CTRL+C STOP]...")
 print("\n") 
 
 
@@ -71,7 +70,10 @@ def scanner():
             r = requests.get(url)
             Reply = f'{r.status_code}'         
             if Reply in args.status:
-                print(f"Status {green}{Reply}{white} => {green}{url}{white}")
+                if r.status_code == 404:
+                    print(f"Status {red}{Reply}{red} => {green}{url}{white}")
+                else:
+                    print(f"Status {green}{Reply}{white} => {green}{url}{white}")
 
 
                 
